@@ -23,13 +23,8 @@ btnSubmit.addEventListener('click',(e)=>{
 
     const arrayOfCalendarsInfo = getCalendarDiff(finalDate,inititalDate);
 
-    const Calendars = [];
-    
-    arrayOfCalendarsInfo.forEach(t => {
-
-        let calendar  = new Calendar({year:t.year,month:t.month,day: t.iniDay, countryCode:t.countryCode, lastDay:t.lastDay });
-        Calendars.push(calendar.generateDays());
-    });
+    const Calendars = arrayOfCalendarsInfo
+        .map((t=>new Calendar({year:t.year,month:t.month,day: t.iniDay, countryCode:t.countryCode, lastDay:t.lastDay })));
 
     render(Calendars);
 })
@@ -42,6 +37,8 @@ document.addEventListener('DOMContentLoaded',(e)=>{
 const getCss = (weekday) => {
     if(weekday && (weekday.weekDay == 0 || weekday.weekDay == 6)){
         return "weekendClass";
+    }else if(weekday && (weekday.weekDay >0 || weekday.weekDay <6 )){
+        return "Weekdays";
     }
     return "";
 }
@@ -54,14 +51,12 @@ const getDay = (weekday)=>{
 }
 
 const renderWeeks = (weeks)=> {
-    var html= weeks.map(week=> {
+    return weeks.map(week=> {
           return  `
             <tr>
                ${week.map((weekday,index)=> `<td class="${getCss(weekday)}">${getDay(weekday)}</td>`).join("")}
             </tr>
-`}).join("");
-
-return html;
+            `}).join("");
 }
 
 const render = (calendars) => {
