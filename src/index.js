@@ -23,10 +23,16 @@ btnSubmit.addEventListener('click',(e)=>{
 
     const arrayOfCalendarsInfo = getCalendarDiff(finalDate,inititalDate);
 
-    const Calendars = arrayOfCalendarsInfo
-        .map((t=>new Calendar({year:t.year,month:t.month,day: t.iniDay, countryCode:t.countryCode, lastDay:t.lastDay })));
+    const calendars = arrayOfCalendarsInfo
+        .map((t=>new Calendar({
+            year:t.year,
+            month:t.month,
+            day: t.iniDay, 
+            countryCode:t.countryCode, 
+            lastDay:t.lastDay }).generateDays())
+        );
 
-    render(Calendars);
+    render(calendars);
 })
 
 
@@ -51,10 +57,13 @@ const getDay = (weekday)=>{
 }
 
 const renderWeeks = (weeks)=> {
+
+    console.log(weeks);
+
     return weeks.map(week=> {
           return  `
             <tr>
-               ${week.map((weekday,index)=> `<td class="${getCss(weekday)}">${getDay(weekday)}</td>`).join("")}
+               ${week.map((weekday) => `<td class="${getCss(weekday)}">${getDay(weekday)}</td>`).join("")}
             </tr>
             `}).join("");
 }
