@@ -1,11 +1,9 @@
 
- const getMonthDiff = (d1, d2) => {
+const getMonthDiff = (d1, d2) => {
     var d  =  (d1.getFullYear()*12 + d1.getMonth() ) - (d2.getFullYear()*12 + d2.getMonth()) + 1;
     return d;
 }
-
-
- const maxDayInMonth = (date) =>{ 
+const maxDayInMonth = (date) =>{ 
     return new Date(date.getFullYear(), date.getMonth() + 1 , 0).getDate();
 }
 
@@ -15,7 +13,6 @@ export const addDaystoDate = (date, numberOfDays = 1 ) => {
     }
     return new Date(date.getTime() + (numberOfDays-1)*24*60*60*1000);
 }
-
 
 export const getCalendarDiff = (finalDate,initialDate) => {
     const monthDiff = getMonthDiff(finalDate,initialDate);

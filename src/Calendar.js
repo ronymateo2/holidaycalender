@@ -50,12 +50,12 @@ export class Calendar {
         const weeks = [];
         const weekDays = [0,1,2,3,4,5,6];
 
-        const week01 = weekDays.map(day =>{
-            if(day < dayInWeek){
+        const week01 = weekDays.map(weekday =>{
+            if(weekday < dayInWeek){
                 return null;
             }
             else if(dayInMonth <= maxDayInMonth){
-                const dayOftheCalendar =  { year: this.year, month: this.month, day : dayInMonth++} 
+                const dayOftheCalendar =  { year: this.year, month: this.month, day : dayInMonth++, weekDay:weekday} 
                 //addHolidayIfExists(dayOftheCalendar);         
                 return dayOftheCalendar;       
             } else{
@@ -67,11 +67,11 @@ export class Calendar {
 
         // rest of the weeks
         while(dayInMonth <= maxDayInMonth){
-            const nextweek_X =  weekDays.map(day=>{
+            const nextweek_X =  weekDays.map(weekday=>{
                 if(dayInMonth > maxDayInMonth ){
                     return null;;
                 } else{
-                    const dayOftheCalendar =  { year: this.year, month: this.month, day : dayInMonth++} 
+                    const dayOftheCalendar =  { year: this.year, month: this.month, day : dayInMonth++,weekDay:weekday} 
                     //addHolidayIfExists(dayOftheCalendar);         
                     return dayOftheCalendar;       
                 }

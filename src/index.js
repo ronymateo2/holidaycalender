@@ -39,8 +39,11 @@ document.addEventListener('DOMContentLoaded',(e)=>{
     render([]);
 })
 
-const getCss = (day) => {
-    return ""
+const getCss = (weekday) => {
+    if(weekday && (weekday.weekDay == 0 || weekday.weekDay == 6)){
+        return "weekendClass";
+    }
+    return "";
 }
 
 const getDay = (weekday)=>{
@@ -54,7 +57,7 @@ const renderWeeks = (weeks)=> {
     var html= weeks.map(week=> {
           return  `
             <tr>
-               ${week.map(weekday=> `<td class="${getCss(weekday)}">${getDay(weekday)}</td>`).join("")}
+               ${week.map((weekday,index)=> `<td class="${getCss(weekday)}">${getDay(weekday)}</td>`).join("")}
             </tr>
 `}).join("");
 
@@ -62,11 +65,12 @@ return html;
 }
 
 const render = (calendars) => {
+
+    console.log(calendars);
     const sectionCalendar =  document.getElementById("sectionCalendar");
 
     const monthslabel = ['January', 'February', 'March', 'April','May', 'June', 'July', 'August', 'September','October', 'November', 'December'];
 
-    console.log(calendars);
     sectionCalendar.innerHTML = calendars.map(c=> 
     `
     <table class="table-condensed table-bordered table-striped">
