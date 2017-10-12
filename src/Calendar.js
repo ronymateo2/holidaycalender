@@ -9,7 +9,7 @@ export class Calendar {
         this.lastDay = settings.lastDay;
     }
 
-    __builtDays(holidays){
+    __builtDays(){
 
         const initialDate =  new Date(this.year, this.month, this.day || 1);
         const dayInWeek = initialDate.getDay(); // 0,1,2,3,4,5,6 --> Sun,Mon,Tue,Wed,Thu,Fri,Sat
@@ -18,23 +18,6 @@ export class Calendar {
         this.year = initialDate.getFullYear();
         this.month = initialDate.getMonth();
         this.day = initialDate.getDate();
-
-        // getInHolidays
-
-        const addHolidayIfExists = (date) => {
-            // formatign to "2016-10-31" --> "YYYY-MM-DD"
-            const {year,month,day} = date
-            const format= `${year}-${(month+1).toString().padStart(2,0)}-${(day).toString().padStart(2,0)}`
-
-            for (const prop in holidays){
-                if(prop == format ){            
-                    Object.assign(date,{holiday: holidays[prop]})
-                    break;
-                }
-            }    
-            return date;
-        };
-
 
         // calculate the max day in month example 28-29-30-31
         let maxDayInMonth = new Date(this.year, this.month +1 , 0).getDate();
@@ -96,3 +79,17 @@ export class Calendar {
         return this.__builtDays({});
     }
 }
+
+// const addHolidayIfExists = (date) => {
+//     // formatign to "2016-10-31" --> "YYYY-MM-DD"
+//     const {year,month,day} = date
+//     const format= `${year}-${(month+1).toString().padStart(2,0)}-${(day).toString().padStart(2,0)}`
+
+//     for (const prop in holidays){
+//         if(prop == format ){            
+//             Object.assign(date,{holiday: holidays[prop]})
+//             break;
+//         }
+//     }    
+//     return date;
+// };
